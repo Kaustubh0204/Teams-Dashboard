@@ -9,7 +9,6 @@
 
     <link rel="icon" type="image/x-icon" href="assets/logo.png">
 
-
     <!--Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -25,6 +24,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;600;700&display=swap"
         rel="stylesheet">
+
+    <!--Javascript (Modal Trigger)  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!--My JS files-->
+    <script src="script.js"></script>
+
 
 </head>
 
@@ -51,10 +58,15 @@
             background-color: #32CD32;
 
         }
+
+        .modal-dialog {
+            max-width: 600px;
+        }
     </style>
 
-    <div class="row">
+    <div class="row" style="background-color: #32CD32;">
 
+        <!--Navigation Bar-->
         <div class="col-lg-2 col-md-12" style="background-color: #32CD32; margin-left: 0px; height: 100%;">
 
             <div class="container my-3">
@@ -143,6 +155,7 @@
 
         </div>
 
+        <!--Dashboard-->
         <div class="col-lg-10 col-md-12" style="background-color: #F4F6F4; padding: 0px;">
 
 
@@ -184,18 +197,77 @@
                 </div>
             </nav>
 
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create New Schedule</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12 ms-auto"><label for="scname" class="form-label">Schedule
+                                            Name</label>
+                                        <input type="text" class="form-control" id="scname"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-4 ms-auto"><label for="sdate" class="form-label">Start
+                                            Date</label>
+                                        <input type="text" class="form-control" id="sdate" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-md-4 ms-auto"><label for="edate" class="form-label">End Date</label>
+                                        <input type="text" class="form-control" id="edate" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-md-4 ms-auto"><label for="weeks" class="form-label">Enter No. of
+                                            weeks</label>
+                                        <input type="text" class="form-control" id="weeks" aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+
+                                <p style="color: #F84444; font-size: 10px;" id="error"></p>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-grid gap-2">
+                                            <button class="btn" style="background-color: #DDDDDD;" type="button"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-grid gap-2">
+                                            <button class="btn " style="background-color: #32CD32; color: white;"
+                                                type="button" onclick="createschedule()">Create</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="container-fluid my-4">
 
                 <div class="row">
-                    <div class="col">
-                        <a href="" class="btn" style="background-color: #32CD32; color: white; font-weight: 300; ">Add
+                    <div class="col-lg-3">
+                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn"
+                            style="background-color: #32CD32; color: white; font-weight: 300; ">Add
                             New Schedule</a>
 
                     </div>
-                    <div class="col-6">
+                    <br><br>
+                    <div class="col-lg-6">
 
                     </div>
-                    <div class="col">
+                    <div class="col-lg-3">
 
                         <div class="input-group " style="width: 100%;">
                             <input type="text" class="form-control" placeholder="Search your schedule"
@@ -207,50 +279,53 @@
                     </div>
                 </div>
 
+
+                <!--Schedules-->
                 <div class="container my-5">
 
-                    <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
+                    <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+
+                        <div class="accordion-item accordion-flush">
                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                     aria-controls="panelsStayOpen-collapseOne">
-                                    Winter Training Schedule <i class="fas fa-pen"
-                                        style="color: #A2A2A2; margin-left: 74%;"></i> <i class="fas fa-trash-alt"
-                                        style="color: #F84444; margin-left: 2%;"></i>
+                                    Winter Training Schedule
                                 </button>
                             </h2>
-
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                                 aria-labelledby="panelsStayOpen-headingOne">
-                                <p class="text-muted m-4" style="font-size: 12px;">4 weeks | 12 sessions</p>
+                                <p class="text-muted m-4" style="font-size: 12px;">4 weeks | 12 sessions
+                                    <i class="fas fa-pen"
+                                        style="color: #A2A2A2; margin-left: 82%; font-size: 18px;"></i>
+                                    <i class="fas fa-trash-alt"
+                                        style="color: #F84444; margin-left: 2%; font-size: 18px;"></i>
+                                </p>
                                 <div class="accordion-body">
-
                                     <div class="row">
-                                        <div class="col-3">
-
+                                        <div class="col-lg-3 col-md-12">
                                             <p class="text-muted" style="font-size: 12px;">Start date</p>
                                             <h6>25 January 2020</h6>
-
                                         </div>
-                                        <div class="col-3">
-
+                                        <div class="col-lg-3 col-md-12">
                                             <p class="text-muted" style="font-size: 12px;">End date</p>
                                             <h6>19 February 2020</h6>
-
                                         </div>
                                         <div class="col-4">
 
                                         </div>
-                                        <div class="col-2" style="text-align: center;">
-
+                                        <div class="col-2 d-none d-lg-block" style="text-align: center;">
                                             <a class="btn"
                                                 style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
-
+                                        </div>
+                                        <div class="col-12 d-lg-none d-md-block" style="text-align: left;">
+                                            <br>
+                                            <a class="btn"
+                                                style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
                                         </div>
                                     </div>
 
-                                    <div class="row my-5">
+                                    <div class="row my-5 d-none d-lg-block">
                                         <div class="btn-group" role="group"
                                             aria-label="Basic radio toggle button group">
                                             <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
@@ -282,59 +357,166 @@
                                             <label class="btn btn-outline-success" for="btnradio7">Saturday</label>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item my-2">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+
+                        <div class="accordion-item my-3 accordion-flush">
+                            <h2 class="accordion-header" id="panelsStayOpen-heading2">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseTwo">
-                                    Accordion Item #2
+                                    data-bs-target="#panelsStayOpen-collapse2" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapse2">
+                                    Winter Training Schedule
+                            </h2>
+                            <div id="panelsStayOpen-collapse2" class="accordion-collapse collapse"
+                                aria-labelledby="panelsStayOpen-heading2">
+                                <p class="text-muted m-4" style="font-size: 12px;">4 weeks | 12 sessions
+                                    <i class="fas fa-pen"
+                                        style="color: #A2A2A2; margin-left: 82%; font-size: 18px;"></i>
+                                    <i class="fas fa-trash-alt"
+                                        style="color: #F84444; margin-left: 2%; font-size: 18px;"></i>
+                                </p>
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12">
+                                            <p class="text-muted" style="font-size: 12px;">Start date</p>
+                                            <h6>25 January 2020</h6>
+                                        </div>
+                                        <div class="col-lg-3 col-md-12">
+                                            <p class="text-muted" style="font-size: 12px;">End date</p>
+                                            <h6>19 February 2020</h6>
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-2 d-none d-lg-block" style="text-align: center;">
+                                            <a class="btn"
+                                                style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
+                                        </div>
+                                        <div class="col-12 d-lg-none d-md-block" style="text-align: left;">
+                                            <br>
+                                            <a class="btn"
+                                                style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-5 d-none d-lg-block">
+                                        <div class="btn-group" role="group"
+                                            aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                                autocomplete="off" checked>
+                                            <label class="btn btn-outline-success" for="btnradio1">Sunday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio2">Monday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio3">Tuesday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio4">Wednesday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio5"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio5">Thursday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio6"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio6">Friday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio7"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio7">Saturday</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item accordion-flush">
+                            <h2 class="accordion-header" id="panelsStayOpen-heading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapse3" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapse3">
+                                    Winter Training Schedule
                                 </button>
                             </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                                aria-labelledby="panelsStayOpen-headingTwo">
+                            <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse"
+                                aria-labelledby="panelsStayOpen-heading3">
+                                <p class="text-muted m-4" style="font-size: 12px;">4 weeks | 12 sessions
+                                    <i class="fas fa-pen"
+                                        style="color: #A2A2A2; margin-left: 82%; font-size: 18px;"></i>
+                                    <i class="fas fa-trash-alt"
+                                        style="color: #F84444; margin-left: 2%; font-size: 18px;"></i>
+                                </p>
                                 <div class="accordion-body">
-                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12">
+                                            <p class="text-muted" style="font-size: 12px;">Start date</p>
+                                            <h6>25 January 2020</h6>
+                                        </div>
+                                        <div class="col-lg-3 col-md-12">
+                                            <p class="text-muted" style="font-size: 12px;">End date</p>
+                                            <h6>19 February 2020</h6>
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-2 d-none d-lg-block" style="text-align: center;">
+                                            <a class="btn"
+                                                style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
+                                        </div>
+                                        <div class="col-12 d-lg-none d-md-block" style="text-align: left;">
+                                            <br>
+                                            <a class="btn"
+                                                style="background-color: #32CD32; color: white; font-weight: 300; ">Update</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-5 d-none d-lg-block">
+                                        <div class="btn-group" role="group"
+                                            aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                                autocomplete="off" checked>
+                                            <label class="btn btn-outline-success" for="btnradio1">Sunday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio2">Monday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio3">Tuesday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio4">Wednesday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio5"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio5">Thursday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio6"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio6">Friday</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio7"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-success" for="btnradio7">Saturday</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseThree">
-                                    Accordion Item #3
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                                aria-labelledby="panelsStayOpen-headingThree">
-                                <div class="accordion-body">
-                                    <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
 
-
             </div>
-
-
 
         </div>
 
